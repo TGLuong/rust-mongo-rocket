@@ -12,6 +12,13 @@ use api::user_api::{
     delete_user,
     get_all_users
 };
+use api::account_api::{
+    create_account,
+    get_all_account,
+    update_accout,
+    get_account,
+    delete_account,
+};
 use repository::mongodb_repo::MongoRepo;
 
 #[get("/")]
@@ -24,12 +31,21 @@ fn rocket() -> _ {
     let database = MongoRepo::init();
     rocket::build()
         .manage(database)
-        .mount("/", routes![hello])
-        .mount("/", routes![create_user])
-        .mount("/", routes![get_user])
-        .mount("/", routes![update_user])
-        .mount("/", routes![delete_user])
-        .mount("/", routes![get_all_users])
+        .mount("/", routes![
+            hello,
+            create_user,
+            get_user,
+            update_user,
+            delete_user,
+            get_all_users
+        ])
+        .mount("/", routes![
+            get_all_account,
+            create_account,
+            update_accout,
+            get_account,
+            delete_account,
+        ])
 }
 
 
